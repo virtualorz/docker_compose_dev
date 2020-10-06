@@ -7,6 +7,14 @@ services:
     restart: unless-stopped
     volumes:
       - "${STORAGE_PATH}:/var/project"
+      - "${CRON_PATH}:/etc/cron.d/schedule-cron"
+    command: >
+      bash -c "chmod 0777 /etc/cron.d/schedule-cron
+      && crontab /etc/cron.d/schedule-cron
+      && service cron restart
+      && php-fpm"
+    ports:
+      - 3000:3000
     depends_on:
       - mysql57
     networks:
@@ -55,6 +63,7 @@ services:
     restart: unless-stopped
     ports:
       - 80:80
+      - 443:443
       - 8700:8700
       - 8800:8800
     volumes:
