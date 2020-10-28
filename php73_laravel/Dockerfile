@@ -59,6 +59,7 @@ RUN . $NVM_DIR/nvm.sh \
     && nvm use default
 
 RUN npm i -g create-nuxt-app
+RUN npm i -g pm2
 EXPOSE 3000
 ENV HOST 0.0.0.0
 WORKDIR /var/project/laravel
